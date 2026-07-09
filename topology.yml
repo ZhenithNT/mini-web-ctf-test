@@ -12,6 +12,8 @@ hosts:
       mgmt_user: debian
     flavor: csirtmu.tiny1x2
 
+routers: []
+
 networks:
   - name: direct-net
     cidr: 10.1.1.0/24
@@ -23,3 +25,5 @@ net_mappings:
   - host: target
     network: direct-net
     ip: 10.1.1.20
+
+router_mappings:
