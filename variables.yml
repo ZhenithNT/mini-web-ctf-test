@@ -1,0 +1,3 @@
+flag_web_secret:
+  type: password
+  length: 10

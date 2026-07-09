@@ -1,0 +1,25 @@
+name: mini-web-ctf
+
+hosts:
+  - name: attacker
+    base_box:
+      image: debian-11
+      mgmt_user: debian
+    flavor: csirtmu.tiny1x2
+  - name: target
+    base_box:
+      image: debian-11
+      mgmt_user: debian
+    flavor: csirtmu.tiny1x2
+
+networks:
+  - name: direct-net
+    cidr: 10.1.1.0/24
+
+net_mappings:
+  - host: attacker
+    network: direct-net
+    ip: 10.1.1.10
+  - host: target
+    network: direct-net
+    ip: 10.1.1.20

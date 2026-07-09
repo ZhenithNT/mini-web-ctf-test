@@ -1,0 +1,27 @@
+---
+- name: Bootstrapping All Nodes
+  hosts: all
+  become: true
+  tasks:
+    - name: Install baseline tools
+      apt:
+        name: [curl, nmap]
+        state: present
+        update_cache: yes
+
+- name: Setup Web Target
+  hosts: target
+  become: true
+  tasks:
+    - name: Install Lightweight Web Server
+      apt:
+        name: nginx
+        state: present
+
+    - name: Inject Flag into Web Directory
+      copy:
+        content: "CTF{ {{ flag_web_secret }} }\n"
+        dest: /var/www/html/secret_flag.txt
+        owner: www-data
+        group: www-data
+        mode: '0644'
