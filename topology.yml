@@ -12,18 +12,31 @@ hosts:
       mgmt_user: debian
     flavor: csirtmu.tiny1x2
 
-routers: []
+routers:
+  - name: edge-router
+    base_box:
+      image: debian-11
+      mgmt_user: debian
+    flavor: csirtmu.tiny1x2
 
 networks:
-  - name: direct-net
-    cidr: 10.1.1.0/24
+  - name: attacker-net
+    cidr: 10.10.10.0/24
+  - name: target-net
+    cidr: 10.20.20.0/24
 
 net_mappings:
   - host: attacker
-    network: direct-net
-    ip: 10.1.1.10
+    network: attacker-net
+    ip: 10.10.10.10
   - host: target
-    network: direct-net
-    ip: 10.1.1.20
+    network: target-net
+    ip: 10.20.20.20
 
 router_mappings:
+  - router: edge-router
+    network: attacker-net
+    ip: 10.10.10.1
+  - router: edge-router
+    network: target-net
+    ip: 10.20.20.1
